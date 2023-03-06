@@ -1,0 +1,21 @@
+Piele Mihai Teodor - 331 CB - TEMA 2
+
+-> pentru realizarea acestei teme am folosit Executor Service.
+
+-> modul de implementare:
+    - pornesc un executor service atat pentru comenzi cat si pentru produse
+    - creez o lista de future care imi retine valoarea de retur a functiei 
+      submit, ca sa pot apela .get() pe future, fapt ce inseama ca s-a terminat 
+      threadul si fac asta pentru fiecare thread ca sa verific daca s-a terminat 
+      executia pertotal ca sa pot da shutdown
+    - in functia Orders se citesc comenzile si numarul de produse care trebuie livrate:
+        *fiecare thread activ primeste linii pe care sa lucreze si pentru a nu
+        avea threaduri care lucreaza pe aceeasi comanda, deoarece e
+        toate threadurile citesc din acelasi fisier e posibil ca mai multe threaduri sa
+        lucreze pe aceeasi linie    
+    - in functia Products verific daca linia citita corespunde cu comanda mea, caz in care
+        ii dau shipped si decrementez o variabila care corespunde cu nr de produse pe acea comanda,
+        daca aceasta variabila ajunge la 0 dau shipped comenzii
+    - functia MySynchronizer are rolul de a preveni suprascrierea mai multor comenzi in fisierul de output
+        adica exista posibilitatea ca un thread sa inceapa sa scrie in fisier iar alt thread sa incerce sa 
+        scrie peste acesta
